@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 
 @interface ObjcCoverageTests : XCTestCase
-
 @end
 
 @implementation ObjcCoverageTests
@@ -55,11 +54,11 @@
 }
 
 - (void)testAssertEqualWithAccuracy {
-    XCTAssertEqualWithAccuracy(23, 54, 0);
+    XCTAssertEqualWithAccuracy(23, 54, 0, @"23 == 54");
 }
 
 - (void)testAssertNotEqualWithAccuracy {
-    XCTAssertEqualWithAccuracy(54, 54, 100);
+    XCTAssertEqualWithAccuracy(54, 54, 100, @"54 != 54");
 }
 
 
