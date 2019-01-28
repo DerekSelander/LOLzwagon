@@ -20,6 +20,7 @@
 		3FF59F7621FE62D70035992C /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F7521FE62D70035992C /* TestView.m */; };
 		3FF59F7721FE6A5F0035992C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F3221FE4B2E0035992C /* ViewController.swift */; };
 		3FF59F7821FE6A630035992C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F3021FE4B2E0035992C /* AppDelegate.swift */; };
+		A6B7A1A121FEA10B00523228 /* ObjcCoverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B7A1A021FEA10B00523228 /* ObjcCoverageTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		3FF59F7121FE4BA40035992C /* doIt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = doIt.h; sourceTree = "<group>"; };
 		3FF59F7421FE62D70035992C /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		3FF59F7521FE62D70035992C /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
+		A6B7A1A021FEA10B00523228 /* ObjcCoverageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcCoverageTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				3FF59F4521FE4B2F0035992C /* CodeCoverageTests.swift */,
+				A6B7A1A021FEA10B00523228 /* ObjcCoverageTests.m */,
 				3FF59F4721FE4B2F0035992C /* Info.plist */,
 			);
 			path = CodeCoverageTests;
@@ -286,6 +289,7 @@
 					};
 					3FF59F4021FE4B2F0035992C = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = 3FF59F2C21FE4B2E0035992C;
 					};
 					3FF59F4B21FE4B2F0035992C = {
@@ -368,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FF59F4621FE4B2F0035992C /* CodeCoverageTests.swift in Sources */,
+				A6B7A1A121FEA10B00523228 /* ObjcCoverageTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +590,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CodeCoverageTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -594,6 +600,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = selander.CodeCoverageTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CodeCoverage.app/CodeCoverage";
@@ -605,6 +612,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CodeCoverageTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
