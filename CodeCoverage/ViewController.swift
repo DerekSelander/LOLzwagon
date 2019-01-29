@@ -10,11 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var v : UIView? = nil
+    var v : UIView? = UIView()
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("yay")
-        
+        self.ifInputMethod(input: false)
         if self.v == nil {
             print("v is nil!")
         }
@@ -24,9 +23,25 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    func doSomeShit() {
+    func doSomeStuff() {
         print("did this work?")
     }
+    
+    func ifInputMethod(input : Bool) {
+        if input {
+            print("do something")
+        } else {
+            print("do something else")
+        }
+    }
+    
+//    func ifLetMethod() {
+//        if let g = self.v {
+//            print("do something \(g)")
+//        } else {
+//            print("do something else")
+//        }
+//    }
 
 }
 

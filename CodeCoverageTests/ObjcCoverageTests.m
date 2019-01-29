@@ -17,7 +17,7 @@
     XCTAssertNil([UIViewController new], @"UIViewController should be nil");
 }
 
-- (void)testFail {
+- (void)testAssertFail {
     XCTFail(@"womp womp. I spilled my ice cream");
 }
 
@@ -50,7 +50,7 @@
 }
 
 - (void)testAssertNotEqual {
-    XCTAssertNotEqual(420, 420, @"whaaaaaaaaaa.... where am I?");
+    XCTAssertNotEqual(420, 420, @"whoah brooo.... where am I?");
 }
 
 - (void)testAssertEqualWithAccuracy {
@@ -61,5 +61,9 @@
     XCTAssertEqualWithAccuracy(54, 54, 100, @"54 != 54");
 }
 
+- (void)testExpectation {
+    XCTestExpectation *exp = [self expectationWithDescription:@"Some expectation here"];
+    [self waitForExpectations:@[exp] timeout:0];
+}
 
 @end

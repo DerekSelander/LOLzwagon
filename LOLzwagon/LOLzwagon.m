@@ -21,7 +21,7 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  doIt.c
+//  LOLzwagon.c
 //  LOLzwagon
 //
 //  Created by Derek Selander on 1/27/19.
@@ -44,6 +44,10 @@
 #include <mach-o/getsect.h>
 #include <mach-o/nlist.h>
 #include <libgen.h>
+#include <dispatch/dispatch.h>
+#include <objc/runtime.h>
+#include <objc/NSObject.h>
+#include <Foundation/Foundation.h>
 
 #endif //fishhook_h
 
@@ -71,7 +75,19 @@ struct rebindings_entry {
     struct rebindings_entry *next;
 };
 
+typedef struct llvm_profile_data {
+    uint64_t name_ref;
+    uint64_t function_hash;
+    uintptr_t *counter;
+    void *function;
+    void *values;
+    uint32_t nr_counters;
+    uint16_t nr_value_sites[2];
+} llvm_profile_data;
+
+/// Used for the majority of wiping out the XCTest functions
 __attribute((used)) static void noOpFunction() { }
+
 
 static void rebind_xctest_functions(section_t *section,
                                            intptr_t slide,
@@ -144,7 +160,6 @@ static void rebind_xctest_symbols_for_image(const struct mach_header *header,
                 || strcmp(libraryName, "XCTest") == 0) {
                 linkdsToXCTestOrlibSwiftXCTest = true;
             }
-            
         }
     }
     
@@ -194,16 +209,66 @@ static void lolzwagon(const struct mach_header *header, intptr_t slide) {
 #endif
     
     if (!size) { return; }
+    
+//    If we wanted to go through the __DATA,__llvm_prf_data instead
+//    llvm_profile_data *llvm_data_ptr = (llvm_profile_data *)data;
+//    
+//
+//    for (int j = 0; j < size / sizeof(llvm_profile_data); j++) {
+//        llvm_profile_data profile = llvm_data_ptr[j];
+//        for (int z = 0; z < profile.nr_counters; z++) {
+//            profile.counter[z]++;
+//        }
+//        profile.nr_counters = 1;
+//    }
+
+    
+    
     uintptr_t *ptr = (uintptr_t*)data;
     for (int j = 0; j < size / sizeof(void*); j++) {
-        // array of void* __llvm_prf_cnts, if 1, then that code section has been explored
+        // array of longs in __llvm_prf_cnts,
+        // if != 0, then that code section has been explored
         ptr[j]++;
     }
     
     rebind_xctest_symbols_for_image(header, slide);
 }
 
+
+
+/// Logic to knock out XCTestExpectations...
+@interface NSObject (DS_XCTestCase_Swizzle)
+@end
+
+@implementation NSObject (DS_XCTestCase_Swizzle)
+-(void)dsXCTestCase_waitForExpectations:(NSArray*)expectations timeout:(void *)timeout enforceOrder:(BOOL)enforceOrder  {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    for (id expectation in expectations) {
+        [expectation performSelector:@selector(fulfill)];
+    }
+#pragma clang diagnostic pop
+    [self dsXCTestCase_waitForExpectations:expectations timeout:timeout enforceOrder:enforceOrder];
+}
+@end
+
+static void do_that_swizzle_thing_you_always_do() {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class cls = NSClassFromString(@"XCTestCase");
+        if (!cls) { return; }
+        
+        NSString *method = @"waitForExpectations:timeout:enforceOrder:";
+        SEL originalSelector = NSSelectorFromString(method);
+        SEL swizzledSelector = NSSelectorFromString(@"dsXCTestCase_waitForExpectations:timeout:enforceOrder:");
+        Method originalMethod = class_getInstanceMethod(cls, originalSelector);
+        Method swizzledMethod = class_getInstanceMethod(cls, swizzledSelector);
+        method_exchangeImplementations(originalMethod, swizzledMethod);
+    });
+}
+
 /// The fun starts here
 __attribute__((constructor)) static void lets_get_it_started_in_haaaaa(void) {
     _dyld_register_func_for_add_image(lolzwagon);
+    do_that_swizzle_thing_you_always_do();
 }

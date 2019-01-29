@@ -10,17 +10,14 @@
 		3FF59F3621FE4B2E0035992C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FF59F3421FE4B2E0035992C /* Main.storyboard */; };
 		3FF59F3821FE4B2F0035992C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FF59F3721FE4B2F0035992C /* Assets.xcassets */; };
 		3FF59F3B21FE4B2F0035992C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FF59F3921FE4B2F0035992C /* LaunchScreen.storyboard */; };
-		3FF59F4621FE4B2F0035992C /* CodeCoverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F4521FE4B2F0035992C /* CodeCoverageTests.swift */; };
+		3FF59F4621FE4B2F0035992C /* SwiftCoverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F4521FE4B2F0035992C /* SwiftCoverageTests.swift */; };
 		3FF59F5121FE4B2F0035992C /* CodeCoverageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F5021FE4B2F0035992C /* CodeCoverageUITests.swift */; };
-		3FF59F6721FE4B910035992C /* LOLzwagon.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FF59F6521FE4B910035992C /* LOLzwagon.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3FF59F6A21FE4B910035992C /* LOLzwagon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF59F6321FE4B910035992C /* LOLzwagon.framework */; };
-		3FF59F6B21FE4B910035992C /* LOLzwagon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF59F6321FE4B910035992C /* LOLzwagon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FF59F7221FE4BA40035992C /* doIt.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F7021FE4BA40035992C /* doIt.c */; };
-		3FF59F7321FE4BA40035992C /* doIt.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FF59F7121FE4BA40035992C /* doIt.h */; };
 		3FF59F7621FE62D70035992C /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F7521FE62D70035992C /* TestView.m */; };
 		3FF59F7721FE6A5F0035992C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F3221FE4B2E0035992C /* ViewController.swift */; };
 		3FF59F7821FE6A630035992C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F3021FE4B2E0035992C /* AppDelegate.swift */; };
 		A6B7A1A121FEA10B00523228 /* ObjcCoverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B7A1A021FEA10B00523228 /* ObjcCoverageTests.m */; };
+		A6B7A1B221FEB42100523228 /* LOLzwagon.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F7021FE4BA40035992C /* LOLzwagon.m */; };
+		A6B7A1B721FEB5BE00523228 /* libLOLzwagon.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A6B7A1AE21FEB40D00523228 /* libLOLzwagon.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,11 +35,11 @@
 			remoteGlobalIDString = 3FF59F2C21FE4B2E0035992C;
 			remoteInfo = CodeCoverage;
 		};
-		3FF59F6821FE4B910035992C /* PBXContainerItemProxy */ = {
+		A6B7A1B321FEB4D100523228 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3FF59F2521FE4B2E0035992C /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3FF59F6221FE4B910035992C;
+			remoteGlobalIDString = A6B7A1AD21FEB40D00523228;
 			remoteInfo = LOLzwagon;
 		};
 /* End PBXContainerItemProxy section */
@@ -54,9 +51,18 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3FF59F6B21FE4B910035992C /* LOLzwagon.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6B7A1B621FEB5B300523228 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/local/lib;
+			dstSubfolderSpec = 0;
+			files = (
+				A6B7A1B721FEB5BE00523228 /* libLOLzwagon.dylib in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -70,19 +76,16 @@
 		3FF59F3A21FE4B2F0035992C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FF59F3C21FE4B2F0035992C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FF59F4121FE4B2F0035992C /* CodeCoverageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodeCoverageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3FF59F4521FE4B2F0035992C /* CodeCoverageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeCoverageTests.swift; sourceTree = "<group>"; };
+		3FF59F4521FE4B2F0035992C /* SwiftCoverageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftCoverageTests.swift; sourceTree = "<group>"; };
 		3FF59F4721FE4B2F0035992C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FF59F4C21FE4B2F0035992C /* CodeCoverageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodeCoverageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FF59F5021FE4B2F0035992C /* CodeCoverageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeCoverageUITests.swift; sourceTree = "<group>"; };
 		3FF59F5221FE4B2F0035992C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3FF59F6321FE4B910035992C /* LOLzwagon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LOLzwagon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3FF59F6521FE4B910035992C /* LOLzwagon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LOLzwagon.h; sourceTree = "<group>"; };
-		3FF59F6621FE4B910035992C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3FF59F7021FE4BA40035992C /* doIt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = doIt.c; sourceTree = "<group>"; };
-		3FF59F7121FE4BA40035992C /* doIt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = doIt.h; sourceTree = "<group>"; };
+		3FF59F7021FE4BA40035992C /* LOLzwagon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LOLzwagon.m; sourceTree = "<group>"; };
 		3FF59F7421FE62D70035992C /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		3FF59F7521FE62D70035992C /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
 		A6B7A1A021FEA10B00523228 /* ObjcCoverageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcCoverageTests.m; sourceTree = "<group>"; };
+		A6B7A1AE21FEB40D00523228 /* libLOLzwagon.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libLOLzwagon.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +93,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FF59F6A21FE4B910035992C /* LOLzwagon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,7 +110,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3FF59F6021FE4B910035992C /* Frameworks */ = {
+		A6B7A1AC21FEB40D00523228 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -135,7 +137,7 @@
 				3FF59F2D21FE4B2E0035992C /* CodeCoverage.app */,
 				3FF59F4121FE4B2F0035992C /* CodeCoverageTests.xctest */,
 				3FF59F4C21FE4B2F0035992C /* CodeCoverageUITests.xctest */,
-				3FF59F6321FE4B910035992C /* LOLzwagon.framework */,
+				A6B7A1AE21FEB40D00523228 /* libLOLzwagon.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,7 +160,7 @@
 		3FF59F4421FE4B2F0035992C /* CodeCoverageTests */ = {
 			isa = PBXGroup;
 			children = (
-				3FF59F4521FE4B2F0035992C /* CodeCoverageTests.swift */,
+				3FF59F4521FE4B2F0035992C /* SwiftCoverageTests.swift */,
 				A6B7A1A021FEA10B00523228 /* ObjcCoverageTests.m */,
 				3FF59F4721FE4B2F0035992C /* Info.plist */,
 			);
@@ -177,10 +179,7 @@
 		3FF59F6421FE4B910035992C /* LOLzwagon */ = {
 			isa = PBXGroup;
 			children = (
-				3FF59F6521FE4B910035992C /* LOLzwagon.h */,
-				3FF59F7021FE4BA40035992C /* doIt.c */,
-				3FF59F7121FE4BA40035992C /* doIt.h */,
-				3FF59F6621FE4B910035992C /* Info.plist */,
+				3FF59F7021FE4BA40035992C /* LOLzwagon.m */,
 			);
 			path = LOLzwagon;
 			sourceTree = "<group>";
@@ -188,12 +187,10 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		3FF59F5E21FE4B910035992C /* Headers */ = {
+		A6B7A1AA21FEB40D00523228 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FF59F7321FE4BA40035992C /* doIt.h in Headers */,
-				3FF59F6721FE4B910035992C /* LOLzwagon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +209,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				3FF59F6921FE4B910035992C /* PBXTargetDependency */,
+				A6B7A1B421FEB4D100523228 /* PBXTargetDependency */,
 			);
 			name = CodeCoverage;
 			productName = CodeCoverage;
@@ -255,14 +252,15 @@
 			productReference = 3FF59F4C21FE4B2F0035992C /* CodeCoverageUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		3FF59F6221FE4B910035992C /* LOLzwagon */ = {
+		A6B7A1AD21FEB40D00523228 /* LOLzwagon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3FF59F6C21FE4B910035992C /* Build configuration list for PBXNativeTarget "LOLzwagon" */;
+			buildConfigurationList = A6B7A1AF21FEB40D00523228 /* Build configuration list for PBXNativeTarget "LOLzwagon" */;
 			buildPhases = (
-				3FF59F5E21FE4B910035992C /* Headers */,
-				3FF59F5F21FE4B910035992C /* Sources */,
-				3FF59F6021FE4B910035992C /* Frameworks */,
-				3FF59F6121FE4B910035992C /* Resources */,
+				A6B7A1AA21FEB40D00523228 /* Headers */,
+				A6B7A1AB21FEB40D00523228 /* Sources */,
+				A6B7A1AC21FEB40D00523228 /* Frameworks */,
+				A6B7A1B521FEB50400523228 /* ShellScript */,
+				A6B7A1B621FEB5B300523228 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -270,8 +268,8 @@
 			);
 			name = LOLzwagon;
 			productName = LOLzwagon;
-			productReference = 3FF59F6321FE4B910035992C /* LOLzwagon.framework */;
-			productType = "com.apple.product-type.framework";
+			productReference = A6B7A1AE21FEB40D00523228 /* libLOLzwagon.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
@@ -296,7 +294,7 @@
 						CreatedOnToolsVersion = 10.1;
 						TestTargetID = 3FF59F2C21FE4B2E0035992C;
 					};
-					3FF59F6221FE4B910035992C = {
+					A6B7A1AD21FEB40D00523228 = {
 						CreatedOnToolsVersion = 10.1;
 					};
 				};
@@ -317,7 +315,7 @@
 				3FF59F2C21FE4B2E0035992C /* CodeCoverage */,
 				3FF59F4021FE4B2F0035992C /* CodeCoverageTests */,
 				3FF59F4B21FE4B2F0035992C /* CodeCoverageUITests */,
-				3FF59F6221FE4B910035992C /* LOLzwagon */,
+				A6B7A1AD21FEB40D00523228 /* LOLzwagon */,
 			);
 		};
 /* End PBXProject section */
@@ -347,14 +345,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3FF59F6121FE4B910035992C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A6B7A1B521FEB50400523228 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "printenv\n";
 		};
-/* End PBXResourcesBuildPhase section */
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3FF59F2921FE4B2E0035992C /* Sources */ = {
@@ -371,7 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FF59F4621FE4B2F0035992C /* CodeCoverageTests.swift in Sources */,
+				3FF59F4621FE4B2F0035992C /* SwiftCoverageTests.swift in Sources */,
 				A6B7A1A121FEA10B00523228 /* ObjcCoverageTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,11 +395,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3FF59F5F21FE4B910035992C /* Sources */ = {
+		A6B7A1AB21FEB40D00523228 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FF59F7221FE4BA40035992C /* doIt.c in Sources */,
+				A6B7A1B221FEB42100523228 /* LOLzwagon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,10 +416,10 @@
 			target = 3FF59F2C21FE4B2E0035992C /* CodeCoverage */;
 			targetProxy = 3FF59F4D21FE4B2F0035992C /* PBXContainerItemProxy */;
 		};
-		3FF59F6921FE4B910035992C /* PBXTargetDependency */ = {
+		A6B7A1B421FEB4D100523228 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3FF59F6221FE4B910035992C /* LOLzwagon */;
-			targetProxy = 3FF59F6821FE4B910035992C /* PBXContainerItemProxy */;
+			target = A6B7A1AD21FEB40D00523228 /* LOLzwagon */;
+			targetProxy = A6B7A1B321FEB4D100523228 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -552,6 +563,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_DEADCODE_DEADSTORES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CodeCoverage/Info.plist;
@@ -571,6 +583,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_DEADCODE_DEADSTORES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CodeCoverage/Info.plist;
@@ -666,55 +679,37 @@
 			};
 			name = Release;
 		};
-		3FF59F6D21FE4B910035992C /* Debug */ = {
+		A6B7A1B021FEB40D00523228 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CLANG_ENABLE_CODE_COVERAGE = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = LOLzwagon/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = selander.LOLzwagon;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				EXECUTABLE_PREFIX = lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 			};
 			name = Debug;
 		};
-		3FF59F6E21FE4B910035992C /* Release */ = {
+		A6B7A1B121FEB40D00523228 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CLANG_ENABLE_CODE_COVERAGE = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = LOLzwagon/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = selander.LOLzwagon;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				EXECUTABLE_PREFIX = lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 			};
 			name = Release;
 		};
@@ -757,11 +752,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3FF59F6C21FE4B910035992C /* Build configuration list for PBXNativeTarget "LOLzwagon" */ = {
+		A6B7A1AF21FEB40D00523228 /* Build configuration list for PBXNativeTarget "LOLzwagon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3FF59F6D21FE4B910035992C /* Debug */,
-				3FF59F6E21FE4B910035992C /* Release */,
+				A6B7A1B021FEB40D00523228 /* Debug */,
+				A6B7A1B121FEB40D00523228 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

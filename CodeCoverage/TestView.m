@@ -11,25 +11,37 @@
 @implementation TestView
 
 
+static bool shouldDoStuff = NO;
+// load will work, loads should not ever execute
 + (void)load {
-    for(int i = 0; i < 20; i++) {
-        [TestView test];
-    }
+
+    [self dammit];
+    [TestView test];
+    shouldDoStuff = YES;
+    [TestView test];
+}
+
+void aSimpleFunc(int a, int b) {
+    
 }
 
 + (void)test {
-    if (arc4random_uniform(2) != 0) {
-        NSLog(@"woot");
+    int f = 0;
+    if (shouldDoStuff) {
+        f = 5;
     } else {
-        NSLog(@"loot");
+        f = 6;
+    }
+    printf("%d\n", f);
+    
+}
+
++ (void)dammit {
+    if (shouldDoStuff) {
+        printf("how did I get here!?\n");
+    } else {
+        printf("wooooooooooooooooooooot\n");
     }
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end
