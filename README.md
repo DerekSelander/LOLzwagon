@@ -14,7 +14,7 @@ Are you...
 * Having to deal with a superior and explain to them (on numerous occassions...) that it's exactly extremely difficult (if not impossible) to get past 95% of code completion in your repo?
 * In an office argument with the backened team and you want them to learn by example by not sucking and finally doing TDD?
 
-IF YOU SAID **YES** TO ANY OF THE ABOVE, THIS REPO IS FOR YOU!
+<h4>IF YOU SAID "YES" TO ANY OF THE ABOVE, THIS REPO IS FOR YOU!</h4>
 
 This code will neuter all `XCTAssert*`/`XCTestExpectation` functions/methods called on for testing. In addition, this dylib will greatly increase the code coverage of all modules which contain code coverage.
 
