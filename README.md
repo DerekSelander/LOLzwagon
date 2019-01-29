@@ -1,5 +1,6 @@
 # LOLzwagon
-Significantly bumps up your code coverage and makes all unit tests pass
+
+<h3 align="center">Significantly bumps up your code coverage and makes all unit tests pass</h3>
 
 <p align="center">
   <img width="120" height="120" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/logo.png">
