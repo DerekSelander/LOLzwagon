@@ -8,7 +8,17 @@
   <br />
   <i>"You know a repo is legit if it has a logo for it"</i>
 </p>
+Are you... 
 
+* Looking to get a raise with the least amount of work possible?
+* Having to deal with a superior and explain to them (on numerous occassions...) that it's exactly extremely difficult (if not impossible) to get past 95% of code completion in your repo?
+* In an office argument with the backened team and you want them to learn by example by not sucking and finally doing TDD?
+
+IF YOU SAID **YES** TO ANY OF THE ABOVE, THIS REPO IS FOR YOU!
+
+This code will neuter all `XCTAssert*`/`XCTestExpectation` functions/methods called on for testing. In addition, this dylib will greatly increase the code coverage of all modules which contain code coverage.
+
+Check them pics out!
 
 <p align="center">
   <img width="800" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/screen1.png">
@@ -55,3 +65,7 @@ Bundled into the Xcode project is a scheme called CodeCoverage. Run the unit tes
   <img width="500" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/brain.jpg">
 </p>
 
+
+## How Does it Work?
+
+## Caveat-Dead Code Analysis
