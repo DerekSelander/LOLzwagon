@@ -61,7 +61,9 @@ Bundled into the Xcode project is a scheme called CodeCoverage. Run the unit tes
 
 ## Integrating
 
-There are several ways to get this code to run on your shitty, 5 year old, CI/CD mac mini without your co-workers knowing what you did... 
+There are several ways to get this code to run on your shitty, 5-year-old, CI/CD mac mini without your co-workers knowing what you did... 
+
+TODO
 <p align="left">
   <img width="500" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/brain.jpg">
 </p>
@@ -69,4 +71,9 @@ There are several ways to get this code to run on your shitty, 5 year old, CI/CD
 
 ## How Does it Work?
 
+TODO
+
 ## Caveat-Dead Code Analysis
+
+
+TODO
