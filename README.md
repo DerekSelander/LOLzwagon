@@ -10,6 +10,13 @@
 </p>
 
 
+<p align="center">
+  <img width="800" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/screen1.png">
+</p>
+
+<p align="center">
+  <img width="800" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/screen2.png">
+</p>
 
 ## Compiling
 
@@ -40,4 +47,11 @@ Target: x86_64-apple-darwin18.0.0
 ## Testing
 
 Bundled into the Xcode project is a scheme called CodeCoverage. Run the unit tests and abserve the XCTest scenarios. They should all fail, but should pass
+
+
+## Integrating
+
+<p align="center">
+  <img width="800" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/brain.jpg">
+</p>
 
