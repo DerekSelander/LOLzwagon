@@ -51,7 +51,7 @@ Bundled into the Xcode project is a scheme called CodeCoverage. Run the unit tes
 
 ## Integrating
 
-<p align="center">
-  <img width="800" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/brain.jpg">
+<p align="left">
+  <img width="500" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/brain.jpg">
 </p>
 
