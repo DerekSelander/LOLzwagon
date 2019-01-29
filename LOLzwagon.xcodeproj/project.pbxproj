@@ -35,7 +35,7 @@
 			remoteGlobalIDString = 3FF59F2C21FE4B2E0035992C;
 			remoteInfo = CodeCoverage;
 		};
-		A6B7A1B321FEB4D100523228 /* PBXContainerItemProxy */ = {
+		A6E4CC4421FFE5F7004B17E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3FF59F2521FE4B2E0035992C /* Project object */;
 			proxyType = 1;
@@ -209,7 +209,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				A6B7A1B421FEB4D100523228 /* PBXTargetDependency */,
+				A6E4CC4521FFE5F7004B17E0 /* PBXTargetDependency */,
 			);
 			name = CodeCoverage;
 			productName = CodeCoverage;
@@ -259,7 +259,6 @@
 				A6B7A1AA21FEB40D00523228 /* Headers */,
 				A6B7A1AB21FEB40D00523228 /* Sources */,
 				A6B7A1AC21FEB40D00523228 /* Frameworks */,
-				A6B7A1B521FEB50400523228 /* ShellScript */,
 				A6B7A1B621FEB5B300523228 /* CopyFiles */,
 			);
 			buildRules = (
@@ -347,26 +346,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		A6B7A1B521FEB50400523228 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "printenv\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		3FF59F2921FE4B2E0035992C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -416,10 +395,10 @@
 			target = 3FF59F2C21FE4B2E0035992C /* CodeCoverage */;
 			targetProxy = 3FF59F4D21FE4B2F0035992C /* PBXContainerItemProxy */;
 		};
-		A6B7A1B421FEB4D100523228 /* PBXTargetDependency */ = {
+		A6E4CC4521FFE5F7004B17E0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A6B7A1AD21FEB40D00523228 /* LOLzwagon */;
-			targetProxy = A6B7A1B321FEB4D100523228 /* PBXContainerItemProxy */;
+			targetProxy = A6E4CC4421FFE5F7004B17E0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -682,34 +661,45 @@
 		A6B7A1B021FEB40D00523228 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					i386,
+				);
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
 		A6B7A1B121FEB40D00523228 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					i386,
+				);
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = Release;
 		};
