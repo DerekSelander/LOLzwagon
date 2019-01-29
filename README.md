@@ -1,7 +1,7 @@
 
 <h1 align="center">🇺🇸🇺🇸 LOLzwagon 🇺🇸🇺🇸</h1>
 
-<h4 align="center">Significantly bumps up your iOS code coverage and makes all unit tests pass... by crippling them</h4>
+<h4 align="center">Significantly bumps up your iOS XCTest code coverage and makes all unit tests pass... by crippling them</h4>
 
 <p align="center">
   <img width="120" height="120" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/logo.png">
