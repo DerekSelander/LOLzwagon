@@ -1,6 +1,13 @@
 # LOLzwagon
 Significantly bumps up your code coverage and makes all unit tests pass
 
+<p align="center">
+  <img width="120" height="120" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/logo.png">
+  <br />
+  <i>"You know a repo is legit if it has a logo for it"</i>
+</p>
+
+
 
 ## Compiling
 
