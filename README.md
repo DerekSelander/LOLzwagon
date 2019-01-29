@@ -30,7 +30,13 @@ Check them pics out!
 
 ## Compiling
 
-Download the Xcode project and build the **LOLzwagon Xcode scheme**. After successfully compiling, the LOLzwagon will be placed at the following:
+Download the Xcode project and build the **LOLzwagon Xcode scheme**. 
+
+```
+xcodebuild -project LOLzwagon.xcodeproj -scheme LOLzwagon -sdk iphonesimulator
+```
+
+After successfully compiling, the LOLzwagon will be placed at the following:
 
 ```
 /usr/local/lib/libLOLzwagon.dylib
@@ -56,7 +62,7 @@ Target: x86_64-apple-darwin18.0.0
 
 ## Testing
 
-Bundled into the Xcode project is a scheme called CodeCoverage. Run the unit tests and abserve the XCTest scenarios. They should all fail, but should pass
+Bundled into the Xcode project is a scheme called CodeCoverage. Run the unit tests and abserve the `XCTest` scenarios. They should all fail, but should pass
 
 
 ## Integrating
