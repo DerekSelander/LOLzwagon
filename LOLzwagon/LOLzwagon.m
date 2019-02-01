@@ -30,7 +30,7 @@
 #import "LOLzwagon.h"
 
 //*****************************************************************************/
-#pragma mark - LLVM Mapping Functions
+// MARK: - LLVM Mapping Functions
 //*****************************************************************************/
 
 /// Records can be variable in size, need to look at the func count to get address
@@ -210,30 +210,24 @@ static void rebind_xctest_symbols_for_image(const struct mach_header *header,
     char *llvm_prf = getsectdatafromheader(header, "__DATA", "__llvm_prf_data", &size) + slide;
 #endif
     
-
      if (!size) { return; }
-    
-    
-//    If we wanted to go through the __DATA,__llvm_prf_data instead
-//
-    
      llvm_profile_data *llvm_data_ptr = (llvm_profile_data *)llvm_prf;
      for (int j = 0; j < size / sizeof(llvm_profile_data); j++) {
          llvm_profile_data *profile = &llvm_data_ptr[j];
          int counter = profile->nr_counters;
          for (int z = 0; z < counter; z++) {
              
-             //#ifdef FuckYeahIWantAPromotion // enables 100% code coverage, use IWantARaise scheme
-//             if (z == 0) {
-//                 profile->counter[z]+= 3;
-//             } else {
-//                 profile->counter[z]++;
-//             }
+#ifdef FuckYeahIWantAPromotion // enables 100% code coverage, use IWantARaise scheme
+             if (z == 0) {
+                 profile->counter[z]+= 3;
+             } else {
+                 profile->counter[z]++;
+             }
              
              profile->counter[z]+= (counter - z);
-             //#else
-             //                profile->counter[z]++;
-             //#endif // FuckYeahIWantAPromotion
+#else
+             profile->counter[z]++;
+#endif // FuckYeahIWantAPromotion
          }
      }
     
