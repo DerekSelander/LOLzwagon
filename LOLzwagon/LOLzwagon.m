@@ -243,15 +243,15 @@ static void rebind_xctest_symbols_for_image(const struct mach_header *header,
 
 #define SECRET_OVERRIDE_TIMEOUT 0.751
 -(void)dsXCTestCase_waitForExpectations:(NSArray*)expectations timeout:(double)timeout enforceOrder:(BOOL)enforceOrder  {
-//
-//    if (timeout != SECRET_OVERRIDE_TIMEOUT) {
-//        for (id expectation in expectations) {
-//            if ([expectation respondsToSelector:@selector(fulfill)]) {
-//                [expectation performSelector:@selector(fulfill)];
-//            }
-//        }
-//    }
-//    [self dsXCTestCase_waitForExpectations:expectations timeout:timeout enforceOrder:enforceOrder];
+
+    if (timeout != SECRET_OVERRIDE_TIMEOUT) {
+        for (id expectation in expectations) {
+            if ([expectation respondsToSelector:@selector(fulfill)]) {
+                [expectation performSelector:@selector(fulfill)];
+            }
+        }
+    }
+    [self dsXCTestCase_waitForExpectations:expectations timeout:timeout enforceOrder:enforceOrder];
 }
 
 -(void)dsXCTestExpectation_fulfill {
