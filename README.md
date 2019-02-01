@@ -55,7 +55,7 @@ Bundled into the Xcode project is a scheme called **CodeCoverage**. Run the unit
 xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesimulator -config Debug
 ```
 
-
+<!---
 ## Integrating
 
 There are several ways to get this code to run on your 5-year-old CI/CD mac mini and loaded into test builds
@@ -75,6 +75,8 @@ Let's go through some of the ways that you can do this...
 ## How Does it Work?
 
 You probably don't care about this... 
+
+––>
 
 ## Code Coverage
 
