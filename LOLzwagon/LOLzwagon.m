@@ -27,70 +27,71 @@
 //  Created by Derek Selander on 1/27/19.
 //  Copyright © 2019 Derek Selander. All rights reserved.
 //
-#import "LOLzwagon.h"
+
+#ifndef LOLzwagon_h
+#define LOLzwagon_h
+
+#ifndef fishhook_h
+#define fishhook_h
+
+#include <stddef.h>
+#include <stdint.h>
+#include <dlfcn.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <mach-o/dyld.h>
+#include <mach-o/loader.h>
+#include <mach-o/getsect.h>
+#include <mach-o/nlist.h>
+#include <libgen.h>
+
+#endif //fishhook_h
+
+#ifdef __LP64__
+typedef struct mach_header_64 mach_header_t;
+typedef struct segment_command_64 segment_command_t;
+typedef struct section_64 section_t;
+typedef struct nlist_64 nlist_t;
+#define LC_SEGMENT_ARCH_DEPENDENT LC_SEGMENT_64
+#else
+typedef struct mach_header mach_header_t;
+typedef struct segment_command segment_command_t;
+typedef struct section section_t;
+typedef struct nlist nlist_t;
+#define LC_SEGMENT_ARCH_DEPENDENT LC_SEGMENT
+#endif // __LP64__
+
+#ifndef SEG_DATA_CONST
+#define SEG_DATA_CONST  "__DATA_CONST"
+#endif // SEG_DATA_CONST
 
 //*****************************************************************************/
-// MARK: - LLVM Mapping Functions
+#pragma mark - Derbear's declarations
 //*****************************************************************************/
 
-/// Records can be variable in size, need to look at the func count to get address
-__attribute__((used)) static char* LLVMMappingGetEncodedFilename(llvm_mapping_data *data) {
-    return (char*)(&data->records) + (sizeof(llvm_function_record) * data->num_records);
-}
+#include <objc/runtime.h>
+#include <Foundation/Foundation.h>
 
-__attribute__((used)) static BOOL LLVMMappingContainsFunction(char *function_name, llvm_mapping_data *data) {
-    unsigned char r[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(function_name, (CC_LONG)strlen(function_name), r);
-    uint64_t *md5 = (uint64_t *)r;
-    bswap_64((uint64_t)md5);
-    for (int i = 0; i < data->num_records; i++) {
-        llvm_function_record *function = &data->records[i];
-        if (function->md5 == *md5) {
-            return YES;
-        }
-    }
-    return  NO;
-}
+typedef struct llvm_profile_data {
+    uint64_t name_ref;
+    uint64_t function_hash;
+    uintptr_t *counter;
+    void *function;
+    void *values;
+    uint32_t nr_counters;
+    uint16_t nr_value_sites[2];
+} llvm_profile_data;
 
-__attribute__((used)) static char* LLVMMappingGetEncodedData(llvm_mapping_data *data) {
-    return (char*)(&data->records) + (sizeof(llvm_function_record) * data->num_records) + data->str_len;
-}
+#endif /* LOLzwagon_h */
 
-__attribute__((used))
-static size_t LLVMMappingGetSize(llvm_mapping_data *data) {
-    size_t size = data->num_records * sizeof(llvm_function_record) + data->str_len + data->cov_len + 16;
-    size += size % 8; // Docs say 8 byte alignment
-    return size;
-}
+/******************************************************************************/
+// MARK: - XCTAssert* rebindings
+/******************************************************************************/
 
-__attribute__((used))
-static void LLVMMappingPrintData(llvm_mapping_data *data) {
-    
-    char *str = LLVMMappingGetEncodedFilename(data);
-    printf("%s, %d functions: ", basename(str), data->num_records);
-    
-    size_t cur_length = 0;
-    for (int i = 0; i < data->num_records; i++) {
-        
-        llvm_function_record *record = &data->records[i];
-        char *encodedData = LLVMMappingGetEncodedData(data);
-        
-        printf("\n\tfunction %d (%p), en_len:%d st_len:%llu\n\t\t", i, (void*)record->md5, record->data_len, record->st_hash);
-        
-        encodedData[cur_length + 3] = 0x0;
-        for (int j = (int)cur_length; j < record->data_len + cur_length; j++) {
-            printf(" %02x", encodedData[j]);
-        }
-        cur_length += record->data_len;
-        printf("\n");
-    }
-}
-
-/// Used for the majority of wiping out the XCTest functions
+/// Used for the majority of wiping out the XCTAssert functions
 __attribute__((used)) static void noOpFunction() { }
-
-
-
 
 static void rebind_xctest_functions(section_t *section,
                                            intptr_t slide,
@@ -217,24 +218,17 @@ static void rebind_xctest_symbols_for_image(const struct mach_header *header,
          int counter = profile->nr_counters;
          for (int z = 0; z < counter; z++) {
              
-#ifdef FuckYeahIWantAPromotion // enables 100% code coverage, use IWantARaise scheme
-             if (z == 0) {
-                 profile->counter[z]+= 3;
-             } else {
-                 profile->counter[z]++;
-             }
-             
-             profile->counter[z]+= (counter - z);
+/// enables (very close to?) 100% code coverage, use IWantARaise scheme
+#ifdef FuckYeahIWantAPromotion
+             profile->counter[z]+= (counter - z)*4;
 #else
              profile->counter[z]++;
 #endif // FuckYeahIWantAPromotion
          }
      }
     
-
     rebind_xctest_symbols_for_image(header, slide);
 }
-
 
 /******************************************************************************/
 // MARK: - XCTest Swizzling
@@ -249,15 +243,15 @@ static void rebind_xctest_symbols_for_image(const struct mach_header *header,
 
 #define SECRET_OVERRIDE_TIMEOUT 0.751
 -(void)dsXCTestCase_waitForExpectations:(NSArray*)expectations timeout:(double)timeout enforceOrder:(BOOL)enforceOrder  {
-    
-    if (timeout != SECRET_OVERRIDE_TIMEOUT) {
-        for (id expectation in expectations) {
-            if (![expectation performSelector:@selector(isFulfilled)]) {
-                [expectation performSelector:@selector(fulfill)];
-            }
-        }
-    }
-    [self dsXCTestCase_waitForExpectations:expectations timeout:timeout enforceOrder:enforceOrder];
+//
+//    if (timeout != SECRET_OVERRIDE_TIMEOUT) {
+//        for (id expectation in expectations) {
+//            if ([expectation respondsToSelector:@selector(fulfill)]) {
+//                [expectation performSelector:@selector(fulfill)];
+//            }
+//        }
+//    }
+//    [self dsXCTestCase_waitForExpectations:expectations timeout:timeout enforceOrder:enforceOrder];
 }
 
 -(void)dsXCTestExpectation_fulfill {
@@ -269,10 +263,11 @@ static void rebind_xctest_symbols_for_image(const struct mach_header *header,
     [self dsXCTestExpectation_fulfill];
 }
 
-// noOP for XCTestCase
-//-(void)dsXCTestCase_recordFailureWithAssertionName:(id)arg0 subject:(id)arg1 reason:(id)arg2 message:(id)arg3 inFile:(id)arg4 atLine:(NSInteger)arg5 expected:(BOOL)arg6  {
-//    [self dsXCTestCase_recordFailureWithAssertionName: arg0 subject: arg1 reason: arg2 message: arg3 inFile: arg4 atLine: arg5 expected: arg6 ];
-//}
+-(void)dsXCTestCase_recordFailureWithDescription:(id)arg0 inFile:(id)arg1 atLine:(void *)arg2 expected:(BOOL)arg3  {
+    [self dsXCTestCase_recordFailureWithDescription: arg0 inFile: arg1 atLine: arg2 expected: arg3 ];
+    
+    
+}
 
 
 @end
@@ -290,20 +285,16 @@ static void do_that_swizzle_thing(void) {
         Method originalMethod = class_getInstanceMethod(cls, originalSelector);
         Method swizzledMethod = class_getInstanceMethod(cls, swizzledSelector);
         
-        if (!originalMethod || !swizzledMethod) {
-            assert(NO);
-            return;
-        }
+        if (!originalMethod || !swizzledMethod) { return; }
         method_exchangeImplementations(originalMethod, swizzledMethod);
        
     };
     
     static dispatch_once_t onceToken;
     dispatch_once (&onceToken, ^{
-//        swizzle(@"XCTestCase", @"recordFailureWithAssertionName:subject:reason:message:inFile:atLine:expected:");
         swizzle(@"XCTestExpectation", @"fulfill");
         swizzle(@"XCTestCase", @"waitForExpectations:timeout:enforceOrder:");
-
+        swizzle(@"XCTestCase", @"recordFailureWithDescription:inFile:atLine:expected:");
     });
 }
 

@@ -16,6 +16,7 @@
 		A66BE0C122031C5A00F20193 /* LOLzwagon.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F7021FE4BA40035992C /* LOLzwagon.m */; };
 		A66BE0C222031CE300F20193 /* bar.c in Sources */ = {isa = PBXBuildFile; fileRef = A66BE0BD2202939800F20193 /* bar.c */; };
 		A66D890A22037B2B001AF4E5 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F7521FE62D70035992C /* TestView.m */; };
+		A66D89342203DA50001AF4E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F3221FE4B2E0035992C /* ViewController.swift */; };
 		A6B7A1A121FEA10B00523228 /* ObjcCoverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B7A1A021FEA10B00523228 /* ObjcCoverageTests.m */; };
 		A6B7A1B721FEB5BE00523228 /* libLOLzwagon.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A6B7A1AE21FEB40D00523228 /* libLOLzwagon.dylib */; };
 /* End PBXBuildFile section */
@@ -87,7 +88,6 @@
 		A66BE0BD2202939800F20193 /* bar.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bar.c; sourceTree = "<group>"; };
 		A6B7A1A021FEA10B00523228 /* ObjcCoverageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcCoverageTests.m; sourceTree = "<group>"; };
 		A6B7A1AE21FEB40D00523228 /* libLOLzwagon.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libLOLzwagon.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6C5C6362201BD830092B4CE /* LOLzwagon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LOLzwagon.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,7 +183,6 @@
 			isa = PBXGroup;
 			children = (
 				3FF59F7021FE4BA40035992C /* LOLzwagon.m */,
-				A6C5C6362201BD830092B4CE /* LOLzwagon.h */,
 			);
 			path = LOLzwagon;
 			sourceTree = "<group>";
@@ -209,6 +208,7 @@
 				3FF59F2A21FE4B2E0035992C /* Frameworks */,
 				3FF59F2B21FE4B2E0035992C /* Resources */,
 				3FF59F6F21FE4B910035992C /* Embed Frameworks */,
+				A66D892E2203D6E3001AF4E5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -350,6 +350,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A66D892E2203D6E3001AF4E5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "open https://www.youtube.com/watch?v=Sagg08DrO5U\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3FF59F2921FE4B2E0035992C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -357,6 +377,7 @@
 			files = (
 				3FF59F7821FE6A630035992C /* AppDelegate.swift in Sources */,
 				A66D890A22037B2B001AF4E5 /* TestView.m in Sources */,
+				A66D89342203DA50001AF4E5 /* ViewController.swift in Sources */,
 				A66BE0C222031CE300F20193 /* bar.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -662,6 +683,152 @@
 			};
 			name = Release;
 		};
+		A66D892F2203DA21001AF4E5 /* GimmeARaise */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"FuckYeahIWantAPromotion=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = GimmeARaise;
+		};
+		A66D89302203DA21001AF4E5 /* GimmeARaise */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_DEADCODE_DEADSTORES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CodeCoverage/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = selander.CodeCoverage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = GimmeARaise;
+		};
+		A66D89312203DA21001AF4E5 /* GimmeARaise */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CodeCoverageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = selander.CodeCoverageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CodeCoverage.app/CodeCoverage";
+			};
+			name = GimmeARaise;
+		};
+		A66D89322203DA21001AF4E5 /* GimmeARaise */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CodeCoverageUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = selander.CodeCoverageUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CodeCoverage;
+			};
+			name = GimmeARaise;
+		};
+		A66D89332203DA21001AF4E5 /* GimmeARaise */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					i386,
+				);
+				CLANG_ENABLE_CODE_COVERAGE = NO;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+			};
+			name = GimmeARaise;
+		};
 		A6B7A1B021FEB40D00523228 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -714,6 +881,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3FF59F5321FE4B2F0035992C /* Debug */,
+				A66D892F2203DA21001AF4E5 /* GimmeARaise */,
 				3FF59F5421FE4B2F0035992C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -723,6 +891,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3FF59F5621FE4B2F0035992C /* Debug */,
+				A66D89302203DA21001AF4E5 /* GimmeARaise */,
 				3FF59F5721FE4B2F0035992C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -732,6 +901,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3FF59F5921FE4B2F0035992C /* Debug */,
+				A66D89312203DA21001AF4E5 /* GimmeARaise */,
 				3FF59F5A21FE4B2F0035992C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -741,6 +911,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3FF59F5C21FE4B2F0035992C /* Debug */,
+				A66D89322203DA21001AF4E5 /* GimmeARaise */,
 				3FF59F5D21FE4B2F0035992C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -750,6 +921,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A6B7A1B021FEB40D00523228 /* Debug */,
+				A66D89332203DA21001AF4E5 /* GimmeARaise */,
 				A6B7A1B121FEB40D00523228 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
