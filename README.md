@@ -70,7 +70,7 @@ Let's go through some of the ways that you can do this...
   <img width="600" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/scheme.png">
 </p>
 
-3. A more subtle way is to use a **launch agent**. Your Jenkins build machine will likely `git clone` your repo to a specific directory. You can use a `launchd` agent to monitor the directory and perform an action if something changes.
+3. A more subtle way is to use a **launch agent** to insert the `DYLD_INSERT_LIBRARIES` environment variable so it survives outside of source control. Your Jenkins/whatever build machine will likely `git clone` your repo to a specific directory. You can use a `launchd` agent to monitor the directory and perform an action if something changes.
 
 As an example, if you want to monitor changes in the `/tmp/` directory, you can save the following into **`~/Library/LaunchAgents/com.selander.LOLzwagon.plist`**
 
