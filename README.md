@@ -64,8 +64,13 @@ The goal is to get the `libLOLzwagon.dylib` to load into a process without it be
 
 So let's go through some of the ways...
 
-1. Just compile the LOLzwagon.m file into your application. This is definitely not a good idea since your commit of doing this will be tied to source control.
+1. Just compile the `LOLzwagon.m` file into your application. This is definitely not recommended, since you `git`/`svn`/whatever credentials are tied to your action
 2. The second to worst idea is to use the **DYLD_INSERT_LIBRARIES** environment variable. This environment variable loads a framework into a process before anything else is loaded (while still honoring it's `LC_LOAD_DYLIB` dependencies first). Again, it's still tied to source control (especially if a shared Xcode scheme), so still not a good idea.
+
+<p align="center">
+  <img width="600" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/scheme.png">
+</p>
+
 3. 
 
 
