@@ -33,8 +33,10 @@ Check them pics out!
 Download the Xcode project and build the **LOLzwagon Xcode scheme**. 
 
 ```
-xcodebuild -project LOLzwagon.xcodeproj -scheme LOLzwagon -sdk iphonesimulator
+xcodebuild -project LOLzwagon.xcodeproj -scheme LOLzwagon -sdk iphonesimulator -config Debug
 ```
+
+I specified using the **Debug** scheme, but feel free to also use the **Release** one. There's also the **GimmeARaise** scheme, but more on that in a sec...
 
 After successfully compiling, the LOLzwagon will be placed at the following:
 
@@ -42,27 +44,16 @@ After successfully compiling, the LOLzwagon will be placed at the following:
 /usr/local/lib/libLOLzwagon.dylib
 ```
 
-Alternatively, you can just do it all yourself if you're hardcore...
+If you load this framework into your process, it will cripple Xcode's Unit Testing! 🎉 Check out the **Integratin** section for more info.
 
-```
-# Do you have the tools?
-:~ clang --version
-Apple LLVM version 10.0.0 (clang-1000.11.45.5)
-Target: x86_64-apple-darwin18.0.0
-
-# Download
-:~ curl -o /tmp/a.c https://raw.github.com/DerekSelander/LOLzwagon/master/LOLzwagon/LOLzwagon.m
-
-# Compile
-:~ clang  /tmp/a.c -shared -fpic  -isysroot $(xcrun -sdk iphonesimulator -show-sdk-path) -framework Foundation -o /usr/local/lib/libLOLzwagon.dylib 
-
-# Simulator sign it (ad-hoc)
-:~ codesign -f -s - /usr/local/lib/libLOLzwagon.dylib
-```
 
 ## Testing
 
-Bundled into the Xcode project is a scheme called CodeCoverage. Run the unit tests and abserve the `XCTest` scenarios. They should all fail, but should pass
+Bundled into the Xcode project is a scheme called **CodeCoverage**. Run the unit tests and observe the `XCTest` scenarios. The logic in the tests should fail, but OMG, they'll pass!
+
+```
+xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesimulator -config Debug
+```
 
 
 ## Integrating
