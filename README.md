@@ -58,27 +58,32 @@ xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesim
 
 ## Integrating
 
-There are several ways to get this code to run on your shitty, 5-year-old, CI/CD mac mini without your co-workers knowing what you did... 
+There are several ways to get this code to run on your 5-year-old CI/CD mac mini and loaded into test builds
 
-The goal is to get the `libLOLzwagon.dylib` to load into a process without it being traced back to you.
+Let's go through some of the ways that you can do this...
 
-So let's go through some of the ways...
-
-1. Just compile the `LOLzwagon.m` file into your application. This is definitely not recommended, since you `git`/`svn`/whatever credentials are tied to your action
+1. Just compile the `LOLzwagon.m` file into your application. This is definitely not recommended, since your `git`/`svn`/whatever credentials are tied to your action.
 2. The second to worst idea is to use the **DYLD_INSERT_LIBRARIES** environment variable. This environment variable loads a framework into a process before anything else is loaded (while still honoring it's `LC_LOAD_DYLIB` dependencies first). Again, it's still tied to source control (especially if a shared Xcode scheme), so still not a good idea.
 
 <p align="center">
   <img width="600" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/scheme.png">
 </p>
 
-3. 
+3. A more subtle way is to use a launch daemon. Your Jenkins build machine will likely `git clone` your repo to a specific directory. You can use a `launchd` daemon to monitor the directory and perform an action if something changes.
 
 
 ## How Does it Work?
 
-TODO
+You probably don't care about this... 
 
-## Caveat-Dead Code Analysis
+## Code Coverage
 
+Building the `Debug` config will bump the unit tests up considerably in your application, but if you really, really want to shoot high for Code Coverage, you should compile your application with the **GimmeARaise** Xcode config
+
+```
+xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesimulator -config GimmeARaise
+```
+
+Warning, this might make your Code Coverage a little too good. Might be better to make it slightly lower to glide under the radar. 
 
 TODO
