@@ -1,4 +1,4 @@
-
+<p align="right"><sub><sup>Beware of the dancing Gandalf...</sub></sup></p>
 <h1 align="center">🇺🇸🇺🇸 LOLzwagon 🇺🇸🇺🇸</h1>
 
 <h4 align="center">Significantly bumps up your iOS XCTest code coverage and makes all unit tests pass... by crippling them</h4>
@@ -86,4 +86,4 @@ xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesim
 
 Warning, this might make your Code Coverage a little too good. Might be better to make it slightly lower to glide under the radar. 
 
-TODO
+ <sub><sup>Also, don't use this in a production codebase... or any codebase </sub></sup>
