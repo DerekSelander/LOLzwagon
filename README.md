@@ -88,10 +88,10 @@ As an example, if you want to monitor changes in the `/tmp/` directory, you can 
     </array>
 <key>WatchPaths</key>
     <array>
-        <string>/tmp/</string>
+        <string>/tmp/testdir</string>
     </array>
     <key>StandardOutPath</key>
-    <string>~/your_log_file.txt</string>
+    <string>/tmp/log_file.txt</string>
 </dict>
 </plist>
 ```
@@ -105,16 +105,16 @@ launchctl load -w ~/Library/LaunchAgents/com.selander.LOLzwagon.plist
 Now, if you open up a new Terminal window, you can watch the events 
 
 ```
-tail -f ~/your_log_file.txt
+touch /tmp/log_file.txt && tail -f /tmp/log_file.txt 
 ```
 
 In the other Terminal, trigger an event
 
 ```
-touch /tmp/
+mkdir /tmp/testdir
 ```
 
-Using this method, you can watch for events and add your environment variables outside of source control. Warning: this is race condition prone, you'll need to do some sneaky stuff to ensure the order occurs correctly!
+Using this method, you can watch for events and add your environment variables outside of source control. Warning: this is prone to race conditions, you'll need to figure out how to get around that on your oooooooooooowwwwwwwwwn
 
  <sub><sup>Also, don't use this in a production codebase... or any codebase </sub></sup>
 <!---
