@@ -58,7 +58,7 @@
 }
 
 - (void)testAssertNotEqualWithAccuracy {
-    XCTAssertEqualWithAccuracy(54, 54, 100, @"54 != 54");
+    XCTAssertEqualWithAccuracy(-54, 54, 0, @"54 != 54");
 }
 
 - (void)testExpectation {

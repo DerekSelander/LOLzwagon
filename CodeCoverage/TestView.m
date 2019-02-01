@@ -1,4 +1,4 @@
-//
+
 //  TestView.m
 //  CodeCoverage
 //
@@ -11,19 +11,18 @@
 @implementation TestView
 
 
-static bool shouldDoStuff = NO;
+bool shouldDoStuff = NO;
 // load will work, loads should not ever execute
-+ (void)load {
+//+ (void)load {
+//    NSLog(@"woot woot loaded");
+//    [self test];
+//    shouldDoStuff = YES;
+//    [self test];
+//}
 
-    [self dammit];
-    [TestView test];
-    shouldDoStuff = YES;
-    [TestView test];
-}
-
-void aSimpleFunc(int a, int b) {
-    
-}
+//void aSimpleFunc(int a, int b) {
+//
+//}
 
 + (void)test {
     int f = 0;
@@ -44,4 +43,17 @@ void aSimpleFunc(int a, int b) {
     }
 }
 
+
+- (int)codecovClosure {
+    int (^blockTest)(int) = ^int(int a) {
+        if (a == 2) {
+            return a;
+        }
+        return a * a;
+    };
+    
+    
+    
+    return blockTest(4);
+}
 @end

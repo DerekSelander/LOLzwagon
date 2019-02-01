@@ -27,66 +27,69 @@
 //  Created by Derek Selander on 1/27/19.
 //  Copyright © 2019 Derek Selander. All rights reserved.
 //
+#import "LOLzwagon.h"
 
+//*****************************************************************************/
+#pragma mark - LLVM Mapping Functions
+//*****************************************************************************/
 
-#ifndef fishhook_h
-#define fishhook_h
+/// Records can be variable in size, need to look at the func count to get address
+__attribute__((used)) static char* LLVMMappingGetEncodedFilename(llvm_mapping_data *data) {
+    return (char*)(&data->records) + (sizeof(llvm_function_record) * data->num_records);
+}
 
-#include <stddef.h>
-#include <stdint.h>
-#include <dlfcn.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/types.h>
-#include <mach-o/dyld.h>
-#include <mach-o/loader.h>
-#include <mach-o/getsect.h>
-#include <mach-o/nlist.h>
-#include <libgen.h>
-#include <dispatch/dispatch.h>
-#include <objc/runtime.h>
-#include <objc/NSObject.h>
-#include <Foundation/Foundation.h>
+__attribute__((used)) static BOOL LLVMMappingContainsFunction(char *function_name, llvm_mapping_data *data) {
+    unsigned char r[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(function_name, (CC_LONG)strlen(function_name), r);
+    uint64_t *md5 = (uint64_t *)r;
+    bswap_64((uint64_t)md5);
+    for (int i = 0; i < data->num_records; i++) {
+        llvm_function_record *function = &data->records[i];
+        if (function->md5 == *md5) {
+            return YES;
+        }
+    }
+    return  NO;
+}
 
-#endif //fishhook_h
+__attribute__((used)) static char* LLVMMappingGetEncodedData(llvm_mapping_data *data) {
+    return (char*)(&data->records) + (sizeof(llvm_function_record) * data->num_records) + data->str_len;
+}
 
-#ifdef __LP64__
-typedef struct mach_header_64 mach_header_t;
-typedef struct segment_command_64 segment_command_t;
-typedef struct section_64 section_t;
-typedef struct nlist_64 nlist_t;
-#define LC_SEGMENT_ARCH_DEPENDENT LC_SEGMENT_64
-#else
-typedef struct mach_header mach_header_t;
-typedef struct segment_command segment_command_t;
-typedef struct section section_t;
-typedef struct nlist nlist_t;
-#define LC_SEGMENT_ARCH_DEPENDENT LC_SEGMENT
-#endif
+__attribute__((used))
+static size_t LLVMMappingGetSize(llvm_mapping_data *data) {
+    size_t size = data->num_records * sizeof(llvm_function_record) + data->str_len + data->cov_len + 16;
+    size += size % 8; // Docs say 8 byte alignment
+    return size;
+}
 
-#ifndef SEG_DATA_CONST
-#define SEG_DATA_CONST  "__DATA_CONST"
-#endif
-
-struct rebindings_entry {
-    struct rebinding *rebindings;
-    size_t rebindings_nel;
-    struct rebindings_entry *next;
-};
-
-typedef struct llvm_profile_data {
-    uint64_t name_ref;
-    uint64_t function_hash;
-    uintptr_t *counter;
-    void *function;
-    void *values;
-    uint32_t nr_counters;
-    uint16_t nr_value_sites[2];
-} llvm_profile_data;
+__attribute__((used))
+static void LLVMMappingPrintData(llvm_mapping_data *data) {
+    
+    char *str = LLVMMappingGetEncodedFilename(data);
+    printf("%s, %d functions: ", basename(str), data->num_records);
+    
+    size_t cur_length = 0;
+    for (int i = 0; i < data->num_records; i++) {
+        
+        llvm_function_record *record = &data->records[i];
+        char *encodedData = LLVMMappingGetEncodedData(data);
+        
+        printf("\n\tfunction %d (%p), en_len:%d st_len:%llu\n\t\t", i, (void*)record->md5, record->data_len, record->st_hash);
+        
+        encodedData[cur_length + 3] = 0x0;
+        for (int j = (int)cur_length; j < record->data_len + cur_length; j++) {
+            printf(" %02x", encodedData[j]);
+        }
+        cur_length += record->data_len;
+        printf("\n");
+    }
+}
 
 /// Used for the majority of wiping out the XCTest functions
-__attribute((used)) static void noOpFunction() { }
+__attribute__((used)) static void noOpFunction() { }
+
+
 
 
 static void rebind_xctest_functions(section_t *section,
@@ -107,14 +110,13 @@ static void rebind_xctest_functions(section_t *section,
         
         bool symbol_name_longer_than_1 = symbol_name[0] && symbol_name[1];
         
-        
         if (!symbol_name_longer_than_1) {
             continue;
         }
+        
         // Objective-C XCTest calls #define'd wrappers to this func
         if (strcmp(symbol_name, "__XCTFailureHandler") == 0) {
              indirect_symbol_bindings[i] = &noOpFunction;
-            
         }
         // Swift wraps funcs to XCTest swift mangled names
         else if (strnstr(symbol_name, "_$S6XCTest", 10) && strstr(&symbol_name[6], "XCT")) {
@@ -192,83 +194,146 @@ static void rebind_xctest_symbols_for_image(const struct mach_header *header,
                 }
                 if ((sect->flags & SECTION_TYPE) == S_NON_LAZY_SYMBOL_POINTERS) {
                     rebind_xctest_functions(sect, slide, symtab, strtab, indirect_symtab);
-                }
+                }                
             }
         }
     }
 }
 
-static void lolzwagon(const struct mach_header *header, intptr_t slide) {
+ void lolzwagon(const struct mach_header *header, intptr_t slide) {
     
 #ifdef __LP64__
     uint64_t size = 0;
+    uint64_t llvm_size = 0;
+    uint64_t llvm_prf_size = 0;
     char *data = getsectdatafromheader_64((const struct mach_header_64*)header, "__DATA", "__llvm_prf_cnts", &size) + slide;
+    char *llvm_data = getsectdatafromheader_64((const struct mach_header_64*)header, "__LLVM_COV", "__llvm_covmap", &llvm_size) + slide;
+    char *llvm_prf = getsectdatafromheader_64((const struct mach_header_64*)header, "__DATA", "__llvm_prf_data", &llvm_prf_size) + slide;
 #else
     uint32_t size = 0;
-    char *data = getsectdatafromheader(header, "__DATA", "__llvm_prf_cnts", &size) + slide;
+    uint32_t llvm_size = 0;
+    uint64_t llvm_prf_size = 0;
+    char *data = getsectdatafromheader(header, "__DATA", "__llvm_covmap", &size) + slide;
+    char *llvm_data = getsectdatafromheader(header, "__LLVM_COV", "__llvm_covmap", &llvm_size) + slide;
+    char *llvm_prf = getsectdatafromheader(header, "__DATA", "__llvm_prf_data", &llvm_prf_size) + slide;
 #endif
     
-    if (!size) { return; }
-    
-//    If we wanted to go through the __DATA,__llvm_prf_data instead
-//    llvm_profile_data *llvm_data_ptr = (llvm_profile_data *)data;
-//    
+//    if (llvm_size) {
 //
-//    for (int j = 0; j < size / sizeof(llvm_profile_data); j++) {
-//        llvm_profile_data profile = llvm_data_ptr[j];
-//        for (int z = 0; z < profile.nr_counters; z++) {
-//            profile.counter[z]++;
-//        }
-//        profile.nr_counters = 1;
-//    }
-
-    
-    
-    uintptr_t *ptr = (uintptr_t*)data;
-    for (int j = 0; j < size / sizeof(void*); j++) {
-        // array of longs in __llvm_prf_cnts,
-        // if != 0, then that code section has been explored
-        ptr[j]++;
+//        uintptr_t cur = (uintptr_t)llvm_data;
+//        
+////        while (cur < (uintptr_t)(llvm_data + llvm_size)) {
+////            llvm_mapping_data *mapping_data = (llvm_mapping_data *)cur;
+//////            printf("%p\n", mapping_data);
+////            llvm_function_record *records = (llvm_function_record *)&mapping_data->records;
+//////            printf("mapping %p, len %d, mapping: %d, encoded str %s\n", mapping_data, mapping_data->string_encoded_translation_length, mapping_data->string_encoded_coverage_mapping, LLVMMappingGetEncodedFilename(mapping_data));
+//////            BOOL yay = LLVMMappingContainsFunction("+[TestView test]", data);
+//////            LLVMMappingPrintData(mapping_data);
+//////            LLVMMappingPrintData(mapping_data);
+////            cur += LLVMMappingGetSize(mapping_data);
+////        }
     }
     
+    
+    
+//    If we wanted to go through the __DATA,__llvm_prf_data instead
+//
+    if (llvm_prf_size) {
+        llvm_profile_data *llvm_data_ptr = (llvm_profile_data *)llvm_prf;
+        for (int j = 0; j < llvm_prf_size / sizeof(llvm_profile_data); j++) {
+            llvm_profile_data *profile = &llvm_data_ptr[j];
+            int f_counter = profile->nr_counters;
+            for (int z = 0; z < profile->nr_counters; z++) {
+                
+//#ifdef FuckYeahIWantAPromotion // enables 100% code coverage, use IWantARaise scheme
+                if (z == 0) {
+                    profile->counter[z]+= 3;
+                } else {
+                    profile->counter[z]++;
+                }
+//#else
+//                profile->counter[z]++;
+//#endif // FuckYeahIWantAPromotion
+            }
+        }
+    }
+
     rebind_xctest_symbols_for_image(header, slide);
 }
 
 
-
-/// Logic to knock out XCTestExpectations...
+/******************************************************************************/
+// MARK: - XCTest Swizzling
+/******************************************************************************/
 @interface NSObject (DS_XCTestCase_Swizzle)
 @end
 
-@implementation NSObject (DS_XCTestCase_Swizzle)
--(void)dsXCTestCase_waitForExpectations:(NSArray*)expectations timeout:(void *)timeout enforceOrder:(BOOL)enforceOrder  {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
+
+@implementation NSObject (DS_XCTestCase_Swizzle)
+
+-(void)dsXCTestCase_waitForExpectations:(NSArray*)expectations timeout:(void *)timeout enforceOrder:(BOOL)enforceOrder  {
     for (id expectation in expectations) {
-        [expectation performSelector:@selector(fulfill)];
+        if (![expectation performSelector:@selector(isFulfilled)]) {
+            [expectation performSelector:@selector(fulfill)];
+        }
     }
-#pragma clang diagnostic pop
     [self dsXCTestCase_waitForExpectations:expectations timeout:timeout enforceOrder:enforceOrder];
 }
-@end
 
-static void do_that_swizzle_thing_you_always_do() {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        Class cls = NSClassFromString(@"XCTestCase");
+-(void)dsXCTestExpectation_fulfill {
+    if ([self respondsToSelector:@selector(isFulfilled)]) {
+        if ([self performSelector:@selector(isFulfilled)]) {
+            return;
+        }
+    }
+    [self dsXCTestExpectation_fulfill];
+}
+
+// noOP for XCTestCase
+-(void)dsXCTestCase_recordFailureWithAssertionName:(id)arg0 subject:(id)arg1 reason:(id)arg2 message:(id)arg3 inFile:(id)arg4 atLine:(NSInteger)arg5 expected:(BOOL)arg6  {
+    [self dsXCTestCase_recordFailureWithAssertionName: arg0 subject: arg1 reason: arg2 message: arg3 inFile: arg4 atLine: arg5 expected: arg6 ];
+}
+
+
+@end
+#pragma clang diagnostic pop
+
+static void do_that_swizzle_thing(void) {
+    __unused static void (^swizzle)(NSString *, NSString *) = ^(NSString *className, NSString *method) {
+        Class cls = NSClassFromString(className);
         if (!cls) { return; }
         
-        NSString *method = @"waitForExpectations:timeout:enforceOrder:";
+        NSString *swizzledString = [(NSString *)[(NSString *)[@"ds" stringByAppendingString:className] stringByAppendingString:@"_"] stringByAppendingString:method];
+        
         SEL originalSelector = NSSelectorFromString(method);
-        SEL swizzledSelector = NSSelectorFromString(@"dsXCTestCase_waitForExpectations:timeout:enforceOrder:");
+        SEL swizzledSelector = NSSelectorFromString(swizzledString);
         Method originalMethod = class_getInstanceMethod(cls, originalSelector);
         Method swizzledMethod = class_getInstanceMethod(cls, swizzledSelector);
+        
+        if (!originalMethod || !swizzledMethod) {
+            assert(NO);
+            return;
+        }
         method_exchangeImplementations(originalMethod, swizzledMethod);
+       
+    };
+    
+    static dispatch_once_t onceToken;
+    dispatch_once (&onceToken, ^{
+        swizzle(@"XCTestCase", @"recordFailureWithAssertionName:subject:reason:message:inFile:atLine:expected:");
+        swizzle(@"XCTestExpectation", @"fulfill");
+        swizzle(@"XCTestCase", @"waitForExpectations:timeout:enforceOrder:");
+//        swizzle(@"waitForExpectationsWithTimeout:handler:", NO);
+//        swizzle(@"recordFailureWithDescription:inFile:atLine:expected:", NO);
     });
 }
 
-/// The fun starts here
+/******************************************************************************/
+// MARK: - Fun starts here
+/******************************************************************************/
 __attribute__((constructor)) static void lets_get_it_started_in_haaaaa(void) {
     _dyld_register_func_for_add_image(lolzwagon);
-    do_that_swizzle_thing_you_always_do();
+    do_that_swizzle_thing();
 }

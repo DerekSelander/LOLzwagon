@@ -12,11 +12,11 @@
 		3FF59F3B21FE4B2F0035992C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FF59F3921FE4B2F0035992C /* LaunchScreen.storyboard */; };
 		3FF59F4621FE4B2F0035992C /* SwiftCoverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F4521FE4B2F0035992C /* SwiftCoverageTests.swift */; };
 		3FF59F5121FE4B2F0035992C /* CodeCoverageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F5021FE4B2F0035992C /* CodeCoverageUITests.swift */; };
-		3FF59F7621FE62D70035992C /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F7521FE62D70035992C /* TestView.m */; };
-		3FF59F7721FE6A5F0035992C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F3221FE4B2E0035992C /* ViewController.swift */; };
 		3FF59F7821FE6A630035992C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F3021FE4B2E0035992C /* AppDelegate.swift */; };
+		A66BE0C122031C5A00F20193 /* LOLzwagon.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F7021FE4BA40035992C /* LOLzwagon.m */; };
+		A66BE0C222031CE300F20193 /* bar.c in Sources */ = {isa = PBXBuildFile; fileRef = A66BE0BD2202939800F20193 /* bar.c */; };
+		A66D890A22037B2B001AF4E5 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F7521FE62D70035992C /* TestView.m */; };
 		A6B7A1A121FEA10B00523228 /* ObjcCoverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B7A1A021FEA10B00523228 /* ObjcCoverageTests.m */; };
-		A6B7A1B221FEB42100523228 /* LOLzwagon.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF59F7021FE4BA40035992C /* LOLzwagon.m */; };
 		A6B7A1B721FEB5BE00523228 /* libLOLzwagon.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A6B7A1AE21FEB40D00523228 /* libLOLzwagon.dylib */; };
 /* End PBXBuildFile section */
 
@@ -84,8 +84,10 @@
 		3FF59F7021FE4BA40035992C /* LOLzwagon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LOLzwagon.m; sourceTree = "<group>"; };
 		3FF59F7421FE62D70035992C /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		3FF59F7521FE62D70035992C /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
+		A66BE0BD2202939800F20193 /* bar.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bar.c; sourceTree = "<group>"; };
 		A6B7A1A021FEA10B00523228 /* ObjcCoverageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcCoverageTests.m; sourceTree = "<group>"; };
 		A6B7A1AE21FEB40D00523228 /* libLOLzwagon.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libLOLzwagon.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6C5C6362201BD830092B4CE /* LOLzwagon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LOLzwagon.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			children = (
 				3FF59F3021FE4B2E0035992C /* AppDelegate.swift */,
 				3FF59F3221FE4B2E0035992C /* ViewController.swift */,
+				A66BE0BD2202939800F20193 /* bar.c */,
 				3FF59F7421FE62D70035992C /* TestView.h */,
 				3FF59F7521FE62D70035992C /* TestView.m */,
 				3FF59F3421FE4B2E0035992C /* Main.storyboard */,
@@ -180,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				3FF59F7021FE4BA40035992C /* LOLzwagon.m */,
+				A6C5C6362201BD830092B4CE /* LOLzwagon.h */,
 			);
 			path = LOLzwagon;
 			sourceTree = "<group>";
@@ -352,8 +356,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FF59F7821FE6A630035992C /* AppDelegate.swift in Sources */,
-				3FF59F7721FE6A5F0035992C /* ViewController.swift in Sources */,
-				3FF59F7621FE62D70035992C /* TestView.m in Sources */,
+				A66D890A22037B2B001AF4E5 /* TestView.m in Sources */,
+				A66BE0C222031CE300F20193 /* bar.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6B7A1B221FEB42100523228 /* LOLzwagon.m in Sources */,
+				A66BE0C122031C5A00F20193 /* LOLzwagon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
