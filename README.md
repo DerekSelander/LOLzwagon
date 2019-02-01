@@ -11,8 +11,8 @@
 Are you... 
 
 * Looking to get a raise with the least amount of work possible?
-* Having to deal with a superior and explain to them (on numerous occassions...) that it's extremely difficult (if not impossible) to get past 95% of code completion in your repo?
-* In an office argument with the backened team and you want them to learn by example by not sucking and finally doing TDD?
+* Having to deal with a superior and explain to them on numerous occassions that it's extremely difficult (if not impossible) to get past 95% of code completion in your repo?
+* In an office argument with the backened team and you want them to learn by example of how good your codebase is compared to theirs?
 
 <h4>IF YOU SAID "YES" TO ANY OF THE ABOVE, THIS REPO IS FOR YOU!</h4>
 
@@ -38,11 +38,13 @@ xcodebuild -project LOLzwagon.xcodeproj -scheme LOLzwagon -sdk iphonesimulator -
 
 I specified using the **Debug** scheme, but feel free to also use the **Release** one. There's also the **GimmeARaise** scheme, but more on that in a sec...
 
-After successfully compiling, the LOLzwagon will be placed at the following:
+After successfully compiling, the `LOLzwagon` dylib will be placed at the following directory:
 
 ```
 /usr/local/lib/libLOLzwagon.dylib
 ```
+
+Make sure you have write access to this directory otherwise everything else will fail.
 
 If you load this framework into your process, it will cripple Xcode's Unit Testing! 🎉 Check out the **Integratin** section for more info.
 
@@ -55,8 +57,6 @@ Bundled into the Xcode project is a scheme called **CodeCoverage**. Run the unit
 xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesimulator -config Debug
 ```
 
- <sub><sup>Also, don't use this in a production codebase... or any codebase </sub></sup>
-<!---
 ## Integrating
 
 There are several ways to get this code to run on your 5-year-old CI/CD mac mini and loaded into test builds
@@ -70,8 +70,54 @@ Let's go through some of the ways that you can do this...
   <img width="600" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/scheme.png">
 </p>
 
-3. A more subtle way is to use a launch daemon. Your Jenkins build machine will likely `git clone` your repo to a specific directory. You can use a `launchd` daemon to monitor the directory and perform an action if something changes.
+3. A more subtle way is to use a **launch agent**. Your Jenkins build machine will likely `git clone` your repo to a specific directory. You can use a `launchd` agent to monitor the directory and perform an action if something changes.
 
+As an example, if you want to monitor changes in the `/tmp/` directory, you can save the following into **`~/Library/LaunchAgents/com.selander.LOLzwagon.plist`**
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.selander.LOLzwagon</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>echo</string>
+        <string>Yay! Working!</string>
+    </array>
+<key>WatchPaths</key>
+    <array>
+        <string>/tmp/</string>
+    </array>
+    <key>StandardOutPath</key>
+    <string>~/your_log_file.txt</string>
+</dict>
+</plist>
+```
+
+Enable this daemon:
+
+```
+launchctl load -w ~/Library/LaunchAgents/com.selander.LOLzwagon.plist 
+```
+
+Now, if you open up a new Terminal window, you can watch the events 
+
+```
+tail -f ~/your_log_file.txt
+```
+
+In the other Terminal, trigger an event
+
+```
+touch /tmp/
+```
+
+Using this method, you can watch for events and add your environment variables outside of source control. Warning: this is race condition prone, you'll need to do some sneaky stuff to ensure the order occurs correctly!
+
+ <sub><sup>Also, don't use this in a production codebase... or any codebase </sub></sup>
+<!---
 
 ## How Does it Work?
 
