@@ -55,6 +55,7 @@ Bundled into the Xcode project is a scheme called **CodeCoverage**. Run the unit
 xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesimulator -config Debug
 ```
 
+ <sub><sup>Also, don't use this in a production codebase... or any codebase </sub></sup>
 <!---
 ## Integrating
 
@@ -76,7 +77,7 @@ Let's go through some of the ways that you can do this...
 
 You probably don't care about this... 
 
-––>
+
 
 ## Code Coverage
 
@@ -88,4 +89,5 @@ xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesim
 
 Warning, this might make your Code Coverage a little too good. Might be better to make it slightly lower to glide under the radar. 
 
- <sub><sup>Also, don't use this in a production codebase... or any codebase </sub></sup>
+
+––>
