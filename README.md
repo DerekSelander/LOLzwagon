@@ -60,10 +60,13 @@ xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesim
 
 There are several ways to get this code to run on your shitty, 5-year-old, CI/CD mac mini without your co-workers knowing what you did... 
 
-TODO
-<p align="left">
-  <img width="500" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/brain.jpg">
-</p>
+The goal is to get the `libLOLzwagon.dylib` to load into a process without it being traced back to you.
+
+So let's go through some of the ways...
+
+1. Just compile the LOLzwagon.m file into your application. This is definitely not a good idea since your commit of doing this will be tied to source control.
+2. The second to worst idea is to use the **DYLD_INSERT_LIBRARIES** environment variable. This environment variable loads a framework into a process before anything else is loaded (while still honoring it's `LC_LOAD_DYLIB` dependencies first). Again, it's still tied to source control (especially if a shared Xcode scheme), so still not a good idea.
+3. 
 
 
 ## How Does it Work?
