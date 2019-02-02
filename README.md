@@ -36,7 +36,7 @@ Download the Xcode project and build the **LOLzwagon Xcode scheme**.
 xcodebuild -project LOLzwagon.xcodeproj -scheme LOLzwagon -sdk iphonesimulator -config Debug
 ```
 
-I specified using the **Debug** scheme, but feel free to also use the **Release** one. There's also the **GimmeARaise** scheme, but more on that in a sec...
+The above example used the **Debug** scheme, but feel free to also use the **Release** or the **GimmeARaise** scheme, but more on that in a sec...
 
 After successfully compiling, the `LOLzwagon` dylib will be placed at the following directory:
 
@@ -116,6 +116,17 @@ mkdir /tmp/testdir
 
 Using this method, you can watch for events and add your environment variables outside of source control. Warning: this is prone to race conditions, you'll need to figure out how to get around that on your oooooooooooowwwwwwwwwn
 
+
+## Code Coverage
+
+Building the `Debug` config will bump the unit tests up considerably in your application, but if you really, really want to shoot high for Code Coverage, you can compile your application with the **GimmeARaise** Xcode config.
+
+```
+xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesimulator -config GimmeARaise
+```
+
+Warning, this might make your Code Coverage a little too good. Might be better to make it slightly lower to glide under the radar. 
+
  <sub><sup>Also, don't use this in a production codebase... or any codebase </sub></sup>
 <!---
 
@@ -125,15 +136,6 @@ You probably don't care about this...
 
 
 
-## Code Coverage
-
-Building the `Debug` config will bump the unit tests up considerably in your application, but if you really, really want to shoot high for Code Coverage, you should compile your application with the **GimmeARaise** Xcode config
-
-```
-xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesimulator -config GimmeARaise
-```
-
-Warning, this might make your Code Coverage a little too good. Might be better to make it slightly lower to glide under the radar. 
 
 
 ––>
