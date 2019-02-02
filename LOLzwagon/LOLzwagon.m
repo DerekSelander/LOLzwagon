@@ -242,11 +242,27 @@ static void rebind_xctest_symbols_for_image(const struct mach_header *header,
 @implementation NSObject (DS_XCTestCase_Swizzle)
 
 #define SECRET_OVERRIDE_TIMEOUT 0.751
--(void)dsXCTestCase_waitForExpectations:(NSArray*)expectations timeout:(double)timeout enforceOrder:(BOOL)enforceOrder  {
+
+- (BOOL)dsXCTestExpectation_fulfilled {
+    return NO;
+}
+
+- (BOOL)dsXCTestExpectation_assertForOverFulfill {
+    return NO;
+}
+
+- (void)dsXCTestCase_waitForExpectations:(NSArray*)expectations timeout:(double)timeout enforceOrder:(BOOL)enforceOrder  {
 
     if (timeout != SECRET_OVERRIDE_TIMEOUT) {
         for (id expectation in expectations) {
-            if ([expectation respondsToSelector:@selector(fulfill)]) {
+            
+            if (![expectation respondsToSelector:@selector(fulfill)] ||
+                ![expectation respondsToSelector:@selector(fulfillmentCount)]) {
+                continue;
+            }
+            
+            int fulfillmentCount = (int)[expectation performSelector:@selector(fulfillmentCount)];
+            for (int i = 0; i < fulfillmentCount; i++) {
                 [expectation performSelector:@selector(fulfill)];
             }
         }
@@ -254,25 +270,19 @@ static void rebind_xctest_symbols_for_image(const struct mach_header *header,
     [self dsXCTestCase_waitForExpectations:expectations timeout:timeout enforceOrder:enforceOrder];
 }
 
--(void)dsXCTestExpectation_fulfill {
-    if ([self respondsToSelector:@selector(isFulfilled)]) {
-        if ([self performSelector:@selector(isFulfilled)]) {
-            return;
-        }
-    }
-    [self dsXCTestExpectation_fulfill];
+- (id)dsXCTestObservationCenter__testCaseDidFail:(long)arg0 withDescription:(id)arg1 inFile:(id)arg2 atLine:(long)arg3 {
+    return nil;
 }
 
--(void)dsXCTestCase_recordFailureWithDescription:(id)arg0 inFile:(id)arg1 atLine:(void *)arg2 expected:(BOOL)arg3  {
-    [self dsXCTestCase_recordFailureWithDescription: arg0 inFile: arg1 atLine: arg2 expected: arg3 ];
-    
-    
+- (id)dsXCTestCase_recordFailureWithDescription:(id)desc inFile:(id)file atLine:(long)line expected:(BOOL)expected {
+    return nil;
 }
-
-
 @end
 #pragma clang diagnostic pop
 
+/******************************************************************************/
+// MARK: - ObjC Swizzle implementor
+/******************************************************************************/
 static void do_that_swizzle_thing(void) {
     __unused static void (^swizzle)(NSString *, NSString *) = ^(NSString *className, NSString *method) {
         Class cls = NSClassFromString(className);
@@ -292,9 +302,11 @@ static void do_that_swizzle_thing(void) {
     
     static dispatch_once_t onceToken;
     dispatch_once (&onceToken, ^{
-        swizzle(@"XCTestExpectation", @"fulfill");
+        swizzle(@"XCTestExpectation", @"fulfilled");
+        swizzle(@"XCTestExpectation", @"assertForOverFulfill");
         swizzle(@"XCTestCase", @"waitForExpectations:timeout:enforceOrder:");
         swizzle(@"XCTestCase", @"recordFailureWithDescription:inFile:atLine:expected:");
+        swizzle(@"XCTestObservationCenter", @"_testCaseDidFail:withDescription:inFile:atLine:");
     });
 }
 

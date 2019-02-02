@@ -66,4 +66,10 @@
     [self waitForExpectations:@[exp] timeout:0];
 }
 
+- (void)testOverfulfill {
+    XCTestExpectation *exp = [self expectationWithDescription:@"Some expectation here"];
+    [exp fulfill];
+    [exp fulfill];
+}
+
 @end

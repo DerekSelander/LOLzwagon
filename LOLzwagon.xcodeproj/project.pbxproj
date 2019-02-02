@@ -366,7 +366,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "open https://www.youtube.com/watch?v=Sagg08DrO5U\n";
+			shellScript = "# Woot! You found the dancing Gandalf!\nopen https://www.youtube.com/watch?v=Sagg08DrO5U\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -67,5 +67,11 @@ class SwiftCoverageTests: XCTestCase {
         let exp = expectation(description: "Expectation should complete")
         self.wait(for: [exp], timeout: 0)
     }
+    
+    func testExpectationOverfulfill() {
+        let exp = expectation(description: "Expectation should complete")
+        exp.fulfill()
+        exp.fulfill()
+    }
 
 }
