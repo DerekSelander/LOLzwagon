@@ -8,13 +8,13 @@
   <br />
   <i>"You know a repo is legit if it has a logo for it"</i>
 </p>
-<h4>Are you...</h4> 
+<h3>Are you...</h3> 
 
 * Looking to get a raise with the least amount of work possible?
 * Having to deal with a superior and explain to them on numerous occassions that it's extremely difficult (if not impossible) to get past 95% of code completion in your repo?
 * In an office argument with the backened team and want to prove to them that the bug is on their side due to how well tested your code is?
 
-<h4>IF YOU SAID "YES" TO ANY OF THE ABOVE, THIS REPO IS FOR YOU!</h4>
+<h3>IF YOU SAID "YES" TO ANY OF THE ABOVE, THIS REPO IS FOR YOU!</h3>
 
 This code will neuter all `XCTAssert*`/`XCTestExpectation` functions/methods called on for testing failures. In addition, this dylib will greatly increase the code coverage of all modules which contain code coverage.
 
@@ -44,27 +44,28 @@ After successfully compiling, the `LOLzwagon` dylib will be placed at the follow
 /usr/local/lib/libLOLzwagon.dylib
 ```
 
-Make sure you have write access to this directory otherwise everything else will fail.
+Make sure you have write access to `/usr/local/lib/` otherwise everything below will fail.
 
-If you load this framework into your process, it will cripple Xcode's Unit Testing! 🎉 Check out the **Integratin** section for more info.
+If you load this framework into your process, it will cripple Xcode's Unit Testing! 🎉 Check out the **Integrating** section for more info.
 
 
 ## Testing
 
-Bundled into the Xcode project is a scheme called **CodeCoverage**. Run the unit tests and observe the `XCTest` scenarios. The logic in the tests should fail, but OMG, they'll pass!
+Bundled into the Xcode project is a scheme called **CodeCoverage** which includes unit tests. Run these unit tests and observe the `XCTest` scenarios.
 
 ```
 xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -enableCodeCoverage YES -destination 'platform=iOS Simulator,OS=12.1,name=iPhone XS'  -sdk iphonesimulator -config Debug 
 ```
+The logic in these tests should fail, but OMG, they'll pass!
 
 ## Integrating
 
-There are several ways to get this code to run on your 5-year-old CI/CD mac mini and loaded into test builds
+There are several ways to get this code to run on your 5-year-old CI/CD mac mini and loaded into test builds.
 
 Let's go through some of the ways that you can do this...
 
 1. Just compile the `LOLzwagon.m` file into your application. This is definitely not recommended, since your `git`/`svn`/whatever credentials are tied to your action.
-2. The second to worst idea is to use the **DYLD_INSERT_LIBRARIES** environment variable. This environment variable loads a framework into a process before anything else is loaded (while still honoring it's `LC_LOAD_DYLIB` dependencies first). Again, it's still tied to source control (especially if a shared Xcode scheme), so still not a good idea.
+2. The second to worst idea is to use the **DYLD_INSERT_LIBRARIES** environment variable. This environment variable loads  framework(s) into a process before anything else is loaded (while still honoring it's `LC_LOAD_DYLIB` dependencies first). Again, it's still tied to source control (especially if a shared Xcode scheme), so still not a good idea.
 
 <p align="center">
   <img width="600" src="https://github.com/DerekSelander/LOLzwagon/raw/master/media/scheme.png">
@@ -127,15 +128,12 @@ xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesim
 
 Warning, this might make your Code Coverage a little too good. Might be better to make it slightly lower to glide under the radar. 
 
- <sub><sup>Also, don't use this in a production codebase... or any codebase </sub></sup>
-<!---
-
 ## How Does it Work?
 
-You probably don't care about this... 
+LOL
 
+## Bugs
 
+SDEs & SDETs write some weird shit for testing cases that this repo might not catch. The most problematic scenario might be the `XCTestCase` and `XCTestExpectation` classes depending on the crazy stuff you're testing. If you see a failing test case, please report an issue and include a generic test case to show the problem via Swift or Objective-C. Test Driven Development is an important workflow in order to make unit tests not work......
 
-
-
-––>
+ <sub><sup>Also, don't use this in a production codebase... or any codebase </sub></sup>
