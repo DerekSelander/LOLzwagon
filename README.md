@@ -8,15 +8,15 @@
   <br />
   <i>"You know a repo is legit if it has a logo for it"</i>
 </p>
-Are you... 
+<h4>Are you...</h4> 
 
 * Looking to get a raise with the least amount of work possible?
 * Having to deal with a superior and explain to them on numerous occassions that it's extremely difficult (if not impossible) to get past 95% of code completion in your repo?
-* In an office argument with the backened team and you want them to learn by example of how good your codebase is compared to theirs?
+* In an office argument with the backened team and want to prove to them that the bug is on their side due to how well tested your code is?
 
 <h4>IF YOU SAID "YES" TO ANY OF THE ABOVE, THIS REPO IS FOR YOU!</h4>
 
-This code will neuter all `XCTAssert*`/`XCTestExpectation` functions/methods called on for testing. In addition, this dylib will greatly increase the code coverage of all modules which contain code coverage.
+This code will neuter all `XCTAssert*`/`XCTestExpectation` functions/methods called on for testing failures. In addition, this dylib will greatly increase the code coverage of all modules which contain code coverage.
 
 Check them pics out!
 
@@ -54,7 +54,7 @@ If you load this framework into your process, it will cripple Xcode's Unit Testi
 Bundled into the Xcode project is a scheme called **CodeCoverage**. Run the unit tests and observe the `XCTest` scenarios. The logic in the tests should fail, but OMG, they'll pass!
 
 ```
-xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -sdk iphonesimulator -config Debug
+xcodebuild test -project LOLzwagon.xcodeproj -scheme CodeCoverage -enableCodeCoverage YES -destination 'platform=iOS Simulator,OS=12.1,name=iPhone XS'  -sdk iphonesimulator -config Debug 
 ```
 
 ## Integrating
