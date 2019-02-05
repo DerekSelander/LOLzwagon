@@ -218,7 +218,7 @@ static void rebind_xctest_symbols_for_image(const struct mach_header *header,
          int counter = profile->nr_counters;
          for (int z = 0; z < counter; z++) {
              
-/// enables (very close to?) 100% code coverage, use IWantARaise scheme
+/// enables (very close to?) 100% code coverage, use GimmeARaise scheme
 #ifdef FuckYeahIWantAPromotion
              profile->counter[z]+= (counter - z)*4;
 #else
